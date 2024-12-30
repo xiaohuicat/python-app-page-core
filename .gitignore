@@ -1,0 +1,8 @@
+**/__pycache__/
+*.pyc
+app_page_core.egg-info/
+build/
+__pycache__
+
+# Editor directories and files
+.vscode/*
