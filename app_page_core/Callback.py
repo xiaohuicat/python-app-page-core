@@ -15,8 +15,9 @@ class Callback:
     # 运行回调函数
     def run(self, name, *args):
         result = []
-        for callback in self.get(name):
-            result.append(callback(*args))
+        callbackList = self.get(name)
+        for callback in callbackList:
+            result.append(callback(*args) if callback else callback)
         return result
 
     # 移除回调函数
