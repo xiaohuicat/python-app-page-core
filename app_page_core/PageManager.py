@@ -1,6 +1,6 @@
 class PageManager:
   def __init__(self):
-    self.btn_dict = {}
+    self.button_dict = {}
     self.page_dict = {}
     self.data = {}
 
@@ -20,23 +20,23 @@ class PageManager:
   # 添加按钮参数
   def addButton(self, id:str, data:dict):
     if isinstance(id, str) and isinstance(data, dict):
-      self.btn_dict[id] = data
+      self.button_dict[id] = data
 
   # 打开页面
   def open(self, id, *args):
     data = {}
     # 点击的页面立即展示
-    if id in self.btn_dict:
+    if id in self.button_dict:
       data["id"] = id
       # 跳转到页面
-      param = self.btn_dict.get(id, None)
+      param = self.button_dict.get(id, None)
       index = param.get("stack_index", 0)
       self.stack.setCurrentIndex(index)
       if id in self.page_dict:
         # 创建页面对象
         Page = self.page_dict[id]
         current = Page()                # 实例化页面
-        current.init_page()             # 初始化页面
+        current.initPage()             # 初始化页面
         try:
           current["show"](param,*args)        # 展示页面
         except:
@@ -67,5 +67,5 @@ class PageManager:
   # 销毁页面
   def destroy(self):
     self.page_dict = {}
-    self.btn_dict = {}
+    self.button_dict = {}
     self.data = {}

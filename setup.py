@@ -1,8 +1,13 @@
 import setuptools
+from pathlib import Path
 
 package_name = "app-page-core"
-version = '0.0.1'
+version = '0.0.2'
 long_description = open("README.md", encoding="utf-8").read()
+# 读取 requirements.txt 文件
+requirements_path = Path(__file__).parent / "requirements.txt"
+with open(requirements_path, "r") as f:
+    requirements = f.read().splitlines()
 
 setuptools.setup(
     name=package_name,
@@ -15,8 +20,6 @@ setuptools.setup(
     url="https://github.com/xiaohuicat/python-app-page-core", # 库的官方地址
     license="MIT",
     packages=["app_page_core"],
-    install_requires=[
-        "nanoid"
-    ],
+    install_requires=requirements,
     zip_safe=False,
 )
