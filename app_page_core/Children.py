@@ -5,6 +5,7 @@ class Children(object):
   def __init__(self):
     self.components = dict()
     self.props:Param
+
   # 查看当前页面的子页面信息
   def info(self, level="——"):
     info_string = ""
@@ -47,7 +48,7 @@ class Children(object):
       return self.components[name]
     else:
       return None
-    
+
   def has(self, name:str):
     return name in self.components.keys()
   
@@ -97,7 +98,7 @@ class Children(object):
     else:
       print(self.components)
       return None
-    
+
 # 加载属性
 def loadProps(self:object, props:any):
   if type(props) == str and os.path.exists(props):
