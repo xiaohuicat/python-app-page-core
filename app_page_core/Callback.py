@@ -3,6 +3,9 @@ from collections import defaultdict
 class Callback:
     def __init__(self):
         self.callback_dict = defaultdict(list)
+        
+    def has(self, name: str):
+        return name in self.callback_dict
 
     # 添加回调函数
     def add(self, name: str, function):

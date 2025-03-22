@@ -14,8 +14,6 @@ class Page:
     self.store = Store()                           # 挂载全局变量管理对象
     self.props:Param
     self.events:Param
-    self.onShow = None
-    self.onHide = None
 
   # 页面初始化
   def setup(self, props=None):
@@ -48,13 +46,13 @@ class Page:
 
   # 展示页面
   def show(self, *args):
-    if type(self.onShow, callable):
-      self.onShow(*args)
+    if self.callback.has('onShow'):
+      self.callback.run('onShow', *args)
 
   # 隐藏页面
   def hide(self, *args):
-    if type(self.onHide, callable):
-      self.onHide(*args)
+    if self.callback.has('onHide'):
+      self.callback.run('onHide', *args)
 
   def wait(self, second, callback):
     threadManager = self.store.get('threadManager', None)
