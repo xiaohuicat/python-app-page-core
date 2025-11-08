@@ -54,7 +54,7 @@ class Page:
     if self.callback.has('onHide'):
       self.callback.run('onHide', *args)
 
-  def wait(self, second, callback):
+  def setTimeout(self, callback, seconds:float):
     threadManager = self.store.get('threadManager', None)
     if not threadManager:
       return
@@ -70,14 +70,14 @@ class Page:
     threadManager.add({
       "id": id,
       "callback": func,
-      "function": lambda: time.sleep(second)
+      "function": lambda: time.sleep(seconds)
     }, True)
 
-  def async_run(self, function, callback):
+  def async_run(self, function, callback=None):
     threadManager = self.store.get('threadManager', None)
     if not threadManager:
       return
-        
+
     id = f"async_run_{generate(size=6)}_{time.time()*1000}"
     def func(*args, **kwargs):
       try:
