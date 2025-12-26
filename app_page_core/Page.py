@@ -1,4 +1,4 @@
-import time, os
+import os
 from nanoid import generate
 from .Store import Store
 from .Callback import Callback
@@ -53,44 +53,6 @@ class Page:
   def hide(self, *args):
     if self.callback.has('onHide'):
       self.callback.run('onHide', *args)
-
-  def setTimeout(self, callback, seconds:float):
-    threadManager = self.store.get('threadManager', None)
-    if not threadManager:
-      return
-    
-    id = f"wait_{generate(size=6)}_{time.time()*1000}"
-    def func(*args, **kwargs):
-      try:
-        callback(*args, **kwargs)
-      except Exception as e:
-        print("等待回调失败：", e)
-      threadManager.remove(id)
-      
-    threadManager.add({
-      "id": id,
-      "callback": func,
-      "function": lambda: time.sleep(seconds)
-    }, True)
-
-  def async_run(self, function, callback=None):
-    threadManager = self.store.get('threadManager', None)
-    if not threadManager:
-      return
-
-    id = f"async_run_{generate(size=6)}_{time.time()*1000}"
-    def func(*args, **kwargs):
-      try:
-        callback(*args, **kwargs)
-      except Exception as e:
-        print("异步回调失败：", e)
-      threadManager.remove(id)
-    
-    threadManager.add({
-      "id": id,
-      "callback": func,
-      "function": function
-    }, True)
 
   def call(self, name:str, *args):
     def run():

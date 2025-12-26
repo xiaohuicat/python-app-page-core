@@ -2,7 +2,7 @@ import setuptools
 from pathlib import Path
 
 package_name = "app-page-core"
-version = '0.0.8'
+version = '0.0.9'
 long_description = open("README.md", encoding="utf-8").read()
 # 读取 requirements.txt 文件
 requirements_path = Path(__file__).parent / "requirements.txt"
