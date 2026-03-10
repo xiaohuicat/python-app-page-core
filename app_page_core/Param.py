@@ -29,11 +29,29 @@ class Param:
             if not keys:
                 return data
             attr = keys.popleft()
+            
+            # 尝试转换为数字（列表索引）
             try:
                 attr = int(attr)
             except ValueError:
                 pass
-            return extract(data.get(attr, default)) if isinstance(data, (dict, list)) else default
+            
+            # 核心修复：区分 dict 和 list 的取值逻辑
+            if isinstance(data, dict):
+                # 字典用 get 方法
+                next_data = data.get(attr, default)
+            elif isinstance(data, list):
+                # 列表要先判断索引是否合法
+                if isinstance(attr, int) and 0 <= attr < len(data):
+                    next_data = data[attr]
+                else:
+                    next_data = default
+            else:
+                # 非容器类型直接返回 default
+                next_data = default
+            
+            # 递归提取下一层
+            return extract(next_data) if isinstance(next_data, (dict, list)) else default
 
         return extract(self.data)
 
