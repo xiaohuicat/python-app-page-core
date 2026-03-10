@@ -39,20 +39,6 @@ class Page:
   def bind(self, signal:str, id:str, func:callable):
     self.events.set(f'{signal}/{id}', func)
     executeBind(self, signal, id, func)
-    
-  # 关闭页面
-  def close(self):
-    self.children.close()
-
-  # 展示页面
-  def show(self, *args):
-    if self.callback.has('onShow'):
-      self.callback.run('onShow', *args)
-
-  # 隐藏页面
-  def hide(self, *args):
-    if self.callback.has('onHide'):
-      self.callback.run('onHide', *args)
 
   def call(self, name:str, *args):
     def run():

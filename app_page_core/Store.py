@@ -51,7 +51,7 @@ class Store:
         if not isinstance(setDict, dict):
             raise TypeError("setDict must be a dictionary")
         glv.GLOBALS_DICT = setDict.copy()  # 使用副本避免外部修改
-      
+
     def get(self, key: str, default: Any = None) -> Any:
         """
         获取全局变量的值。
